@@ -1,0 +1,10 @@
+:root{
+    --fgc: #ffffff;
+    --bgc: #000000;
+}
+
+body{
+    width: 98vw;
+    background-color: var(--bgc);
+    color: var(--fgc);
+}

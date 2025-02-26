@@ -1,13 +1,22 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
+	"os"
+	"path/filepath"
 )
 
-const publicDirBase string = "/home/rexdy/pf/goserve/public"
-
 func homeHandler(w http.ResponseWriter, r *http.Request) {
+	cwd, err := os.Getwd()
+	if err != nil {
+		http.Error(w, "Error getting current directory", http.StatusInternalServerError)
+		log.Println("Error getting current directory:", err)
+		return
+	}
+	publicDirBase := filepath.Join(cwd, "..", "public", "home")
+	fmt.Println("Serving ", publicDirBase)
 	http.FileServer(http.Dir(publicDirBase+"/home/")).ServeHTTP(w, r)
 }
 
